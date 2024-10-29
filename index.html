@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weihnachtsbaum mit WebGL</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f0f8ff; /* Winterlicher, hellblauer Hintergrund */
+            font-family: Arial, sans-serif;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #2b6a30; /* Dunkelgrün */
+            text-align: center;
+        }
+
+        p {
+            max-width: 600px;
+            text-align: center;
+            font-size: 1em;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        canvas {
+            width: 80%; 
+            max-width: 500px;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Weihnachtsbaum mit WebGL</h1>
+    <p>Dieser 2D-Weihnachtsbaum wurde mit WebGL generiert und zeigt eine Pyramidenstruktur für die Äste und einen Rechteckstamm.</p>
+    <canvas id="canvas" width="800" height="600"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
