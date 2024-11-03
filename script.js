@@ -49,6 +49,25 @@ gl.useProgram(program);
 function createTreeVertices() {
     const vertices = [];
 
+    // Der Stern an der Spitze besteht aus 3 Dreiecken
+    vertices.push(
+        0.0, 1.0,      // Spitze des oberen Dreiecks des Sterns
+       -0.04, 0.90,    // Unten links des oberen Dreiecks des Sterns
+        0.04, 0.90,    // Unten rechts des oberen Dreiecks des Sterns
+    );
+    
+    vertices.push(
+        -0.04, 0.90,    // Oben links des linken Dreiecks des Sterns
+        0.12, 0.90,    // Oben rechts des rechten Dreiecks des Sterns
+        -0.075, 0.75      // Unten des linken Dreiecks des Sterns
+    );
+
+    vertices.push(
+        -0.12, 0.90,    // Oben links des linken Dreiecks des Sterns
+        0.04, 0.90,    // Oben rechts des rechten Dreiecks des Sterns
+        0.075, 0.75    // Unten des rechten Dreiecks des Sterns
+    );
+
     // Dreiecke für die "Äste" des Baums
     const layers = 5;
     const layerHeight = 0.3;
@@ -61,6 +80,18 @@ function createTreeVertices() {
              width, y - layerHeight,   // Rechte Ecke des Dreiecks
              0.0, y                    // Spitze des Dreiecks
         );
+        /*
+        vertices.push(
+            -width, y - layerHeight,   // Spitze der Kugel
+            -width - 0,125 * layerHeight, y - 1,25 * layerHeight,   // Linke Ecke der Kugel
+            -width, y - 1,25 * layerHeight   // Unten der Kugel
+        );
+        vertices.push(
+            -width, y - layerHeight,   // Spitze der Kugel
+            -width + 0,125 * layerHeight, y - 1,25 * layerHeight,   // Rechte Ecke der Kugel
+            -width, y - 1,25 * layerHeight   // Unten der Kugel
+        );
+        */
     }
 
     // Rechteck für den Baumstamm
@@ -99,13 +130,26 @@ function drawScene() {
     gl.clearColor(1, 1, 1, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    // Grüne Dreiecke (Baumzweige)
+    // Stern zeichnen (gelb)
+    gl.uniform4f(colorLocation, 1.0, 1.0, 0.0, 1.0);
+    gl.drawArrays(gl.TRIANGLES, 0 , 3 * 3);
+
     gl.uniform4f(colorLocation, 0.0, 0.5, 0.0, 1); // Dunkelgrün
-    gl.drawArrays(gl.TRIANGLES, 0, 5 * 3); // 5 Dreiecke mit je 3 Vertices
+    gl.drawArrays(gl.TRIANGLES, 3 * 3, 5 * 3); // Dreieck mit je 3 Vertices 
+
+    /*
+    // Grüne Dreiecke (Baumzweige) und rote Dekorationskugeln
+    for (let i = 0; i < 3 * layers; i = i+3) {
+        gl.uniform4f(colorLocation, 0.0, 0.5, 0.0, 1); // Dunkelgrün
+        gl.drawArrays(gl.TRIANGLES, 3 * 3 + 3 * i, 3); // Dreieck mit je 3 Vertices
+        gl.uniform4f(colorLocation, 1.0, 0.0, 0.0, 1.0);   // Rot
+        gl.drawArrays(gl.TRIANGLES, 3 * 3 + 3 * (i+1), 3*2);  // Dekorationskugeln zeichnen
+    }
+        */
 
     // Braunes Rechteck (Baumstamm)
     gl.uniform4f(colorLocation, 0.5, 0.25, 0.1, 1); // Braun
-    gl.drawArrays(gl.TRIANGLES, 5 * 3, 6); // Rechteck hat 2 Dreiecke mit insgesamt 6 Vertices
+    gl.drawArrays(gl.TRIANGLES, 3 * 3 + 5 * 3, 6); // Rechteck hat 2 Dreiecke mit insgesamt 6 Vertices
 }
 
 drawScene();
